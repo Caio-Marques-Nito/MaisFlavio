@@ -1,0 +1,155 @@
+3) SELECT nome, max(quant)
+FROM (SELECT nome, COUNT(quant) AS quant
+FROM item_atendimento i, pet p
+WHERE i.cod_pet = p.cod_pet
+GROUP BY p.cod_pet)t;    (Essa tá errada mas não tenho idéia do porque, a lógica parece estar certa)
+
+6)
+
+8)SELECT raca, MAX(quant),valor_unit
+FROM(
+SELECT raca, quant, valor_unit
+FROM pet p, item_atendimento i
+WHERE i.cod_pet = p.cod_pet
+GROUP BY raca)t; 
+
+
+9)select s.nome, count(*)
+from item_atendimento ia, servico s
+WHERE ia.cod_s = s.cod_s
+group by s.nome
+having  count(*) = (select max(numatendimentos) from (
+        select count(*) numatendimentos
+        from item_atendimento ia, servico s
+        WHERE ia.cod_s = s.cod_s
+        group by s.nome
+ 	  ) x)
+
+10)
+
+11)SELECT p.nome, COUNT(*)
+FROM pet p, item_atendimento i, servico s
+WHERE i.cod_s = s.cod_s AND p.cod_pet = i.cod_pet AND i.cod_s=3 
+GROUP BY p.cod_pet;
+
+
+12)SELECT nome,quantidade
+FROM(
+SELECT p.nome, COUNT(*) AS quantidade
+FROM pet p, item_atendimento i, servico s
+WHERE i.cod_s = s.cod_s AND p.cod_pet = i.cod_pet AND i.cod_s=3 
+GROUP BY p.cod_pet)t
+WHERE quantidade > 5 AND quantidade <10;
+
+13)SELECT nome, SUM(valor_unit)
+FROM pet p, item_atendimento i
+WHERE p.cod_pet = i.cod_pet
+GROUP BY nome;
+
+14)
+
+
+
+15)select COUNT(*)
+FROM(SELECT cliente.cod_cli 
+     from cliente, pet 
+     WHERE cliente.cod_cli = pet.cod_cli 
+     GROUP by cliente.nome having COUNT(*) > 2) t, item_atendimento i, pet p
+     WHERE i.cod_pet = p.cod_pet and p.cod_cli = t.cod_cli and i.cod_s = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5- 
+
+UPDATE valor_servico set valor = valor *1.1
+
+7-
+
+
+
+9- 
+
+select s.nome, count(*)
+from item_atendimento ia, servico s
+WHERE ia.cod_s = s.cod_s
+group by s.nome
+having  count(*) = (select max(numatendimentos) from (
+        select count(*) numatendimentos
+        from item_atendimento ia, servico s
+        WHERE ia.cod_s = s.cod_s
+        group by s.nome
+ 	  ) x)
+
+11-
+
+SELECT  pet.nome, COUNT(*) 
+from pet , item_atendimento 
+where pet.cod_pet = item_atendimento.cod_pet and item_atendimento.cod_s = 3 GROUP by pet.nome
+
+15- 
+
+select COUNT(*) from (SELECT cliente.cod_cli from cliente, pet WHERE cliente.cod_cli = pet.cod_cli GROUP by cliente.nome having COUNT(*) > 2) t, item_atendimento, pet where 
+item_atendimento.cod_pet = pet.cod_pet and pet.cod_cli = t.cod_cli and item_atendimento.cod_s = 1
+
+17-
+
+select DISTINCT cliente.nome from pet, cliente where pet.cod_cli = cliente.cod_cli and (pet.raca = 'Pitbull' or pet.raca = 'Pug' or pet.raca = 'Buldogue' or pet.raca = 'Chihuahua' or pet.raca = 'Poodle') 
+
+19- 
+
+SELECT avg(salario_func) from funcionario
+
+21- 
+
+select * from funcionario where funcionario.salario_func < (SELECT avg(salario_func) from funcionario)
+
+23- 
+
+SELECT * from (select valor_servico.cod_serv as baratos from valor_servico where valor_servico.valor <= 10) baratos,
+(select valor_servico.cod_serv as bom_preco from valor_servico where valor_servico.valor BETWEEN 10 and 50) bom_preco,
+(select valor_servico.cod_serv as caros from valor_servico where valor_servico.valor > 50) caros
+
+25- 
+
+SELECT cliente.nome as cliente, funcionario.nome as funcionario,pet.nome as NomePet, COUNT(*) as QntdAtendimentos from  funcionario,cliente, atendimento,pet WHERE atendimento.cod_cli = cliente.cod_cli and pet.cod_cli = cliente.cod_cli and pet.raca = 'Labrador' and funcionario.cod_func = atendimento.cod_func GROUP by cliente.nome ORDER by  COUNT(*)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
