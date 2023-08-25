@@ -2,7 +2,7 @@
 FROM (SELECT nome, COUNT(quant) AS quant
 FROM item_atendimento i, pet p
 WHERE i.cod_pet = p.cod_pet
-GROUP BY p.cod_pet)t;    (Essa tá errada mas não tenho idéia do porque, a lógica parece estar certa)
+GROUP BY p.cod_pet)t;    (Essa tÃ¡ errada mas nÄƒo tenho idÃ©ia do porque, a lÃ³gica parece estar certa)
 
 6)
 
